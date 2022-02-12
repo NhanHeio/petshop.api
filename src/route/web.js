@@ -9,6 +9,9 @@ let initWebRoutes = (app) => {
 
     router.post('/api/login', userController.handleLogin)
 
+    router.post('/api/signup', userController.handleSignup)
+
+
     return app.use("/", router)
 }
 
