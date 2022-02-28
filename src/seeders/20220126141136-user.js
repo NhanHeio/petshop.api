@@ -8,6 +8,7 @@ module.exports = {
     return queryInterface.bulkInsert('Users', [{
       name: 'Ho Trung Nhan',
       phone_number: '0774000828',
+      address: '123 ấp Trường Hòa A, xã Trường Long A, Châu Thành A, Hậu Giang',
       email: 'hotrungnhan@gmail.com',
       birthday: new Date(),
       password: password,
@@ -18,6 +19,7 @@ module.exports = {
     {
       name: 'Le Thi Huynh Giao',
       phone_number: '0796925592',
+      address: 'ấp Trường Hòa A, xã Trường Long A, Châu Thành A, Hậu Giang',
       email: 'lethihuynhgiao@gmail.com',
       birthday: new Date(),
       password: password,
@@ -28,6 +30,7 @@ module.exports = {
     {
       name: 'Nguyen Huu Thien Phu',
       phone_number: '0898007389',
+      address: '132/42B Hưng Lợi, Ninh Kiều, TP.Cần Thơ',
       email: 'nguyenhuuthienphu@gmail.com',
       birthday: new Date(),
       password: password,
@@ -38,6 +41,7 @@ module.exports = {
     {
       name: 'Ho Ngoc Dung',
       phone_number: '0706391039',
+      address: '123 ấp Trường Hòa A, xã Trường Long A, Châu Thành A, Hậu Giang',
       email: 'hongocdung@gmail.com',
       birthday: new Date(),
       password: password,
@@ -48,6 +52,7 @@ module.exports = {
     {
       name: 'Nguyen Thi Thanh Van',
       phone_number: '033619425',
+      address: '123 ấp Trường Hòa A, xã Trường Long A, Châu Thành A, Hậu Giang',
       email: 'nguyenthithanhvan@gmail.com',
       birthday: new Date(),
       password: password,

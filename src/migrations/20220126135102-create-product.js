@@ -15,10 +15,25 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       price: {
-        type: Sequelize.STRING
+        type: Sequelize.DECIMAL
       },
       desc: {
         type: Sequelize.TEXT
+      },
+      quantity: {
+        type: Sequelize.INTEGER
+      },
+      img: {
+        type: Sequelize.STRING
+      },
+      provider: {
+        type: Sequelize.STRING
+      },
+      import_id: {
+        type: Sequelize.INTEGER
+      },
+      color: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
