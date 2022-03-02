@@ -2,13 +2,13 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('Providers',[{
-      name: 'Công ty TNHH Trung Nhân',
-      address: '123 ấp Trường Hòa A, xã Trường Long A, Châu Thành A, Hậu Giang',
+    return queryInterface.bulkInsert('Carts',[{
+      user_id: 3,
+      quantity: 2,
+      total_price: 578000,
       createdAt: new Date(),
       updatedAt: new Date()
-    },
-    
+    }
   ])
   },
 

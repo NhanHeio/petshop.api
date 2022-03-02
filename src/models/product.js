@@ -11,20 +11,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Product.belongsTo(models.OrderItem,{
-        as: 'orderItem',
-        foreignKey: 'product_id'
-      })
 
-      Product.belongsTo(models.ProductType,{
-        as: 'productType',
-        foreignKey: 'type_id'
-      })
+      // Product.belongsTo(models.OrderItem,{
+      //   as: 'orderItem',
+      //   foreignKey: 'product_id'
+      // })
 
-      Product.belongsTo(models.ImportDetail,{
-        as: 'importDetail',
-        foreignKey: 'product_id'
-      })
+      // Product.belongsTo(models.ProductType,{
+      //   as: 'productType',
+      //   foreignKey: 'type_id'
+      // })
+
+      // Product.belongsTo(models.ImportDetail,{
+      //   as: 'importDetail',
+      //   foreignKey: 'product_id'
+      // })
     }
   }
   Product.init({
