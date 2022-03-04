@@ -11,11 +11,17 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER
       },
+      username: {
+        type: Sequelize.STRING
+      },
+      address: {
+        type: Sequelize.STRING
+      },
       total_price: {
         type: Sequelize.DECIMAL
       },
       status: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

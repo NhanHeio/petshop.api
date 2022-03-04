@@ -14,8 +14,12 @@ let initWebRoutes = (app) => {
     //product
     router.get(`/api/get-all-products`, productController.handleGetAllProducts)
     router.get(`/api/get-product`, productController.handleGetProduct)
+
     //cart
     router.get(`/api/get-cart`, cartController.handleGetCart)
+    router.delete(`/api/delete-cart-product`, cartController.handleDeleteCartProduct)
+    router.post(`/api/add-to-cart`, cartController.handleAddToCart)
+    router.post(`/api/checkout-order`, cartController.handleCheckoutOrder)
 
     return app.use("/", router)
 }

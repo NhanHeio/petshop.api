@@ -14,11 +14,17 @@ module.exports = {
       product_id: {
         type: Sequelize.INTEGER
       },
-      name_product: {
+      product_name: {
         type: Sequelize.STRING
       },
       price: {
         type: Sequelize.DECIMAL
+      },
+      quantity: {
+        type: Sequelize.INTEGER
+      },
+      img: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
