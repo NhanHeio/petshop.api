@@ -51,8 +51,46 @@ let getProduct = (id) => {
             let product = await db.Product.findOne({
                 where: { id: id },
             })
+            if(!product){
+                resolve(product = '')
+            }
             resolve(product)
         } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let postComment = (id, name, img, content) => {
+    return new Promise(async (resolve, reject) => {
+        try{
+            await db.Comment.create({
+                user_name: name,
+                user_img: img,
+                product_id: id,
+                content: content,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            })
+            resolve({
+                errCode: 0,
+                errMessage:'Post comment successfully'
+            })
+        }catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let getComment = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try{
+            let comments = ''
+            comments = await db.Comment.findAll({
+                where: {product_id: id}
+            })
+            resolve(comments)
+        }catch (e) {
             reject(e);
         }
     })
@@ -121,6 +159,8 @@ let getProduct = (id) => {
 module.exports = {
     getAllProducts: getAllProducts,
     getProduct: getProduct,
+    postComment: postComment,
+    getComment: getComment,
     // getProductByType: getProductByType,
     // getProductByName: getProductByName
 }

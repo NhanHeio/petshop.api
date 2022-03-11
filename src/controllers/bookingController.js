@@ -1,0 +1,29 @@
+import bookingService from '../services/bookingService'
+
+const handleGetBooking = async (req, res) => {
+    let date = req.query.date
+    let calendar = await bookingService.getBooking(date)
+    return res.status(200).json({
+        errCode: 0,
+        errMessage: 'Get booking successfully',
+        calendar
+    })
+} 
+
+const handleBooking = async (req, res) => {
+    let userID = req.query.userID
+    let service = req.query.service
+    let date = req.query.date
+    let time = req.query.time
+    let booking = bookingService.booking(userID, service, date, time)
+    return res.status(200).json({
+        errCode: 0,
+        errMessage: 'Booking successfully!',
+        booking
+    })
+}
+
+module.exports = {
+    handleGetBooking: handleGetBooking,
+    handleBooking: handleBooking
+}

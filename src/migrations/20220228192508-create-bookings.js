@@ -8,14 +8,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      service_id: {
-        type: Sequelize.INTEGER
+      service: {
+        type: Sequelize.STRING
       },
       user_id: {
         type: Sequelize.INTEGER
       },
       date: {
-        type: Sequelize.DATE
+        type: Sequelize.STRING
       },
       time: {
         type: Sequelize.STRING

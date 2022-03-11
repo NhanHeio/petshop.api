@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       price: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.FLOAT
       },
       desc: {
         type: Sequelize.TEXT
@@ -34,6 +34,10 @@ module.exports = {
       },
       color: {
         type: Sequelize.STRING
+      },
+      rate: {
+        type: Sequelize.INTEGER,
+        defaultValue: 5
       },
       createdAt: {
         allowNull: false,

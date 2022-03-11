@@ -31,13 +31,14 @@ module.exports = (sequelize, DataTypes) => {
   Product.init({
     name: DataTypes.STRING,
     type_id: DataTypes.INTEGER,
-    price: DataTypes.DECIMAL,
+    price: DataTypes.FLOAT,
     desc: DataTypes.TEXT,
     quantity: DataTypes.INTEGER,
     img: DataTypes.STRING,
     provider: DataTypes.STRING,
     import_id: DataTypes.INTEGER,
-    color: DataTypes.STRING
+    color: DataTypes.STRING,
+    rate: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Product',

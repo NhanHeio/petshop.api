@@ -32,6 +32,29 @@ const handleGetProduct = async (req, res) => {
     })
 }
 
+const handleCommentProduct = async (req, res) => {
+    let id = req.query.id;
+    let name = req.query.name
+    let img = req.query.img
+    let content = req.query.content
+    let comment = await productService.postComment(id, name, img, content)
+    return res.status(200).json({
+        errCode: 0,
+        errMessage: 'OK',
+        comment
+    })
+}
+
+const handleGetComment = async (req, res) => {
+    let id = req.query.id
+    let comments = await productService.getComment(id)
+    return res.status(200).json({
+        errCode: 0,
+        errMessage: 'OK',
+        comments
+    })
+}
+
 // const handleGetProductByType = async (req, res) => {
 //     let type_id = req.query.type_id
 //     let page = req.query.page || 1
@@ -61,6 +84,8 @@ const handleGetProduct = async (req, res) => {
 module.exports = {
     handleGetAllProducts: handleGetAllProducts,
     handleGetProduct: handleGetProduct,
+    handleCommentProduct: handleCommentProduct,
+    handleGetComment: handleGetComment,
     // handleGetProductByType: handleGetProductByType,
     // handleGetProductByName: handleGetProductByName
 }

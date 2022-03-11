@@ -13,6 +13,7 @@ module.exports = {
       birthday: new Date(),
       password: password,
       role_id: 1,
+      img: 'https://agriviet.org/wp-content/uploads/2020/12/cach-cham-soc-cho-rotteweiler-3.jpg',
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -24,6 +25,7 @@ module.exports = {
       birthday: new Date(),
       password: password,
       role_id: 2,
+      img: 'https://agriviet.org/wp-content/uploads/2020/12/cach-cham-soc-cho-rotteweiler-3.jpg',
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -35,6 +37,7 @@ module.exports = {
       birthday: new Date(),
       password: password,
       role_id: 2,
+      img: 'https://agriviet.org/wp-content/uploads/2020/12/cach-cham-soc-cho-rotteweiler-3.jpg',
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -46,6 +49,7 @@ module.exports = {
       birthday: new Date(),
       password: password,
       role_id: 3,
+      img: 'https://agriviet.org/wp-content/uploads/2020/12/cach-cham-soc-cho-rotteweiler-3.jpg',
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -57,6 +61,7 @@ module.exports = {
       birthday: new Date(),
       password: password,
       role_id: 3,
+      img: 'https://agriviet.org/wp-content/uploads/2020/12/cach-cham-soc-cho-rotteweiler-3.jpg',
       createdAt: new Date(),
       updatedAt: new Date()
     },

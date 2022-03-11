@@ -18,7 +18,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       price: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.FLOAT
       },
       createdAt: {
         allowNull: false,

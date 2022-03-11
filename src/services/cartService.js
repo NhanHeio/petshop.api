@@ -3,9 +3,13 @@ let getCart = (user_id) => {
     return new Promise (async (resolve, reject) => {
         try{
             let cart = ''
+            
             cart = await db.Cart.findOne({
                 where: {user_id: user_id}
             })
+            if(!cart){
+                resolve(cart = "")
+            }
             let cart_items = ''
             cart_items = await db.CartItem.findAll({
                 where: { cart_id: cart.id}
@@ -26,22 +30,38 @@ let deleteCartProduct = (id) => {
             // })
             // await Cart
             let product = await db.CartItem.findOne({
-                where: { product_id: id },
+                where: { id: id },
             })
             let price = product.price
             let cart_id = product.cart_id
             let quantity = product.quantity
+            let product_id = product.product_id
             let cart = await db.Cart.findOne({
                 where: {id: cart_id},
-                raw: false,
             })
             if(cart){
-                cart.quantity = cart.quantity - quantity
-                cart.total_price = cart.total_price - price
+                await db.Cart.update({
+                    quantity : cart.quantity - quantity,
+                    total_price : cart.total_price - price,
+                    updatedAt: new Date()
+                },{
+                    where: {id: cart_id},
+                })
+                console.log(cart)
+                await db.CartItem.destroy({
+                    where: {id: id}
+                })
             }
-            await cart.save()
-            await db.CartItem.destroy({
-                where: {id: id}
+            let product_detail = await db.Product.findOne({
+                where: {id: product_id}
+            })
+            await db.Product.update({
+                quantity: product_detail.quantity + quantity
+            },{
+                where: {id: product_id}
+            })
+            cart = await db.Cart.findOne({
+                where: {id: cart_id},
             })
             let cart_items = ''
             cart_items = await db.CartItem.findAll({
@@ -83,20 +103,32 @@ let addToCart = (user_id,product_id,quantity) => {
                 },{
                     where: {id: product_id},
                 })
-                product.quantity = product.quantity - quantity
+                
                 let cart_id = cart.id
                 let product_name = product.name
                 let product_price = product.price
                 let product_img = product.img
-                db.CartItem.create({
-                    cart_id: cart_id,
-                    product_id: product_id,
-                    product_name: product_name,
-                    img: product_img,
-                    price: product_price,
-                    quantity: quantity,
+                let cart_item = await db.CartItem.findOne({
+                    where: {product_id: product_id}
                 })
-                db.Cart.update({
+                if(cart_item){
+                    await db.CartItem.update({
+                        quantity: cart_item.quantity + quantity,
+                        updatedAt: new Date()
+                    },{
+                        where: {product_id: product_id}
+                    })
+                }else{
+                    await db.CartItem.create({
+                        cart_id: cart_id,
+                        product_id: product_id,
+                        product_name: product_name,
+                        img: product_img,
+                        price: product_price,
+                        quantity: quantity,
+                    })
+                }
+                await db.Cart.update({
                     quantity: cart.quantity + quantity,
                     total_price: cart.total_price + product_price * quantity,
                     updatedAt: new Date()
@@ -117,13 +149,10 @@ let addToCart = (user_id,product_id,quantity) => {
     })
 }
 
-let checkoutOrder = (user_id) => {
+let checkoutOrder = (user_id,name,phoneNumber,address) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let user = await db.User.findOne({
-                where: { id: user_id}
-            })
-            console.log(user)
+            
 
             let cart = await db.Cart.findOne({
                 where: { user_id: user_id}
@@ -137,8 +166,9 @@ let checkoutOrder = (user_id) => {
 
             await db.Order.create({
                 user_id: user_id,
-                username: user.name,
-                address: user.address,
+                username: name,
+                phone_number: phoneNumber,
+                address: address,
                 total_price: cart.total_price,
                 status: "Waiting for confirm",
                 createdAt: new Date(),

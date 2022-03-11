@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
   Import.init({
     provider_id: DataTypes.INTEGER,
     import_date: DataTypes.DATE,
-    total_price: DataTypes.DECIMAL
+    total_price: DataTypes.FLOAT
   }, {
     sequelize,
     modelName: 'Import',

@@ -3,10 +3,10 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Bookings', [{
-      service_id: 1,
+      service: 'Cạo lông',
       user_id: 3,
-      date: new Date(),
-      time: 1,
+      date: 'Sat Mar 12 2022',
+      time: '8:00 - 9:00',
       createdAt: new Date(),
       updatedAt: new Date()
     }

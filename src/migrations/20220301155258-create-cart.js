@@ -16,7 +16,7 @@ module.exports = {
         defaultValue: 0
       },
       total_price: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.FLOAT,
         defaultValue: 0
       },
       createdAt: {
