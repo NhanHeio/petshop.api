@@ -4,32 +4,53 @@ import userController from '../controllers/userController';
 import productController from '../controllers/productController';
 import cartController from '../controllers/cartController';
 import bookingController from '../controllers/bookingController';
+const upload = require('../middleware/upload');
 
 let router = express.Router();
 
+
 let initWebRoutes = (app) => {
     router.get('/', homeController.getHomePage)
+    //send-file
+    router.get('/api/user/:name', function (req, res) {
+        let name = req.params.name
+        res.sendFile(`public/assets/avatar/` + name, { root: '.' })
+    })
+    router.get('/api/product/:name', function (req, res) {
+        let name = req.params.name
+        res.sendFile(`public/assets/product/` + name, { root: '.' })
+    })
     //user
     router.post('/api/login', userController.handleLogin)
     router.post('/api/signup', userController.handleSignup)
+    router.post('/api/update-user-info', userController.handleUpdateUserInfo)
+    router.post('/api/upload-avatar', upload.single("image"), userController.handleUploadAvatar)
+    router.post('/api/update-user-password', userController.handleUpdateUserPassword)
     //product
     router.get(`/api/get-all-products`, productController.handleGetAllProducts)
     router.get(`/api/get-product`, productController.handleGetProduct)
     router.post(`/api/comment-product`, productController.handleCommentProduct)
     router.get(`/api/get-comment`, productController.handleGetComment)
-    //cart
+
+    //order-cart
     router.get(`/api/get-cart`, cartController.handleGetCart)
     router.delete(`/api/delete-cart-product`, cartController.handleDeleteCartProduct)
     router.post(`/api/add-to-cart`, cartController.handleAddToCart)
     router.post(`/api/checkout-order`, cartController.handleCheckoutOrder)
+    router.get(`/api/get-order/user`, cartController.handleGetOrderUser)
+    router.get(`/api/get-order/order`, cartController.handleGetOrder)
+    router.post(`/api/cancel-order`, cartController.handleCancelOrder)
+
     //payment vnpay
     router.post('/api//create_payment_url', cartController.handleCreatePayment)
-    router.get('/api/vnpay_ipn',cartController.vnpay_ipn)
-    router.get('/api/vnpay_return',cartController.handleReturnPayment)
+    router.get('/api/vnpay_ipn', cartController.vnpay_ipn)
+    router.get('/api/vnpay_return', cartController.handleReturnPayment)
 
     //booking
     router.get(`/api/get-booking-calendar`, bookingController.handleGetBooking)
     router.post('/api/booking', bookingController.handleBooking)
+    router.get(`/api/get-booking/user`, bookingController.handleGetBookingUser)
+    router.post('/api/cancel-booking', bookingController.handleCancelBooking)
 
     return app.use("/", router)
 }

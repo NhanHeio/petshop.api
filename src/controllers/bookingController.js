@@ -23,7 +23,30 @@ const handleBooking = async (req, res) => {
     })
 }
 
+const handleGetBookingUser = async (req, res) => {
+    let userID = req.query.userID
+    let service = await bookingService.getBookingUser(userID)
+    return res.status(200).json({
+        errCode: service.errCode,
+        errMessage: service.errMessage,
+        listService: service ? service.listService : {}
+    })
+}
+
+const handleCancelBooking = async (req, res) => {
+    let userID = req.query.userID
+    let id = req.query.id
+    let service = await bookingService.cancelBooking(userID,id)
+    return res.status(200).json({
+        errCode: service.errCode,
+        errMessage: service.errMessage,
+        listService: service ? service.listService : {}
+    })
+}
+
 module.exports = {
     handleGetBooking: handleGetBooking,
-    handleBooking: handleBooking
+    handleBooking: handleBooking,
+    handleGetBookingUser: handleGetBookingUser,
+    handleCancelBooking: handleCancelBooking,
 }

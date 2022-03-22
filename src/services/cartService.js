@@ -1,4 +1,5 @@
 import db from "../models/index";
+import {sendEmail} from './emailService';
 let getCart = (user_id) => {
     return new Promise (async (resolve, reject) => {
         try{
@@ -78,7 +79,8 @@ let deleteCartProduct = (id) => {
 let addToCart = (user_id,product_id,quantity) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let cart = await db.Cart.findOne({
+            let cart = ''
+            cart = await db.Cart.findOne({
                 where: {user_id: user_id}
             })
             if(!cart){
@@ -89,7 +91,7 @@ let addToCart = (user_id,product_id,quantity) => {
                     createdAt: new Date(),
                     updatedAt: new Date()
                 })
-                cart = await db.Cart.findOne({
+                 cart = await db.Cart.findOne({
                     where: {user_id: user_id}
                 })
             }
@@ -206,9 +208,91 @@ let checkoutOrder = (user_id,name,phoneNumber,address) => {
     })
 }
 
+let getOrderUser = (userID) => {
+    return new Promise (async (resolve, reject) => {
+        try {
+            let order = {}
+            let orderList = ''
+            let user = await db.User.findOne({
+                where: {id: userID}
+            })
+            if(user){
+                orderList = await db.Order.findAll({
+                    where: {user_id: userID}
+                })
+                resolve(order = {
+                    errCode: 0,
+                    errMessage: 'Get list order successfully!',
+                    orderList
+                })
+            }
+            resolve(order = {
+                errCode: 1,
+                errMessage: 'User not found!'
+            })
+        }catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let getOrder = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let orderItem = {}
+            let order = await db.OrderItem.findAll({
+                where: {order_id: id}
+            })
+            resolve(orderItem = {
+                errCode: 0,
+                errMessage: 'Fetch Order Item successfully!',
+                order
+            })
+        }catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let cancelOrder = (id,userID) => {
+    return new Promise(async (resolve, reject) => {
+        try{
+            let order = {}
+            let orderList = ''
+            let user = await db.User.findOne({
+                where: {id: userID}
+            })
+            if(user){
+                await db.Order.update({
+                    status: 'Cancel'
+                },{
+                    where: {id: id}
+                })
+                orderList = await db.Order.findAll({
+                    where: {user_id: userID}
+                })
+                resolve(order = {
+                    errCode: 0,
+                    errMessage: 'Get list order successfully!',
+                    orderList
+                })
+            }
+            resolve(order = {
+                errCode: 1,
+                errMessage: 'User not found!'
+            })
+        }catch (e) {
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
     getCart: getCart,
     deleteCartProduct: deleteCartProduct,
     addToCart: addToCart,
-    checkoutOrder: checkoutOrder
+    checkoutOrder: checkoutOrder,
+    getOrderUser: getOrderUser,
+    getOrder: getOrder,
+    cancelOrder: cancelOrder,
 }

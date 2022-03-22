@@ -2,6 +2,14 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
+    const img = [
+      `https://dogily.vn/wp-content/uploads/2021/12/hat-equilibrio-cho-cho-truong-thanh-1.jpg`,
+      `https://dogily.vn/wp-content/uploads/2021/12/dog-mania-cho-cho-truong-thanh-3-kg-1-250x300.jpg`,
+      `https://dogily.vn/wp-content/uploads/2021/12/nature-kitchen-xuong-khop-cho-cho-2-kg-4-510x510.jpg`,
+      `https://dogily.vn/wp-content/uploads/2020/02/day_dat_yem_police_25mm-510x510.jpg`,
+      `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+    ]
+    //let random = Math.floor((Math.random()*5))
     return queryInterface.bulkInsert('Products', [{
       name: 'Equilibrio',
       type_id: 1,
@@ -11,7 +19,7 @@ module.exports = {
       Hệ tiêu hóa hoạt động khỏe mạnh nhờ hoạt động của men vi sinh (Probiotic) và Inulin (Prebiotic)
       Lông bóng mượt nhờ sự cân bằng hoản hảo của Omega 3 và 6`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/hat-equilibrio-cho-cho-truong-thanh-1.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -29,7 +37,7 @@ module.exports = {
       Duy trì sức khỏe đường ruôt, hệ miễn dịch.
       Giúp hình thành cơ bắp chắc khỏe, giúp cho sự phát triển rắn chắc hơn.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/dog-mania-cho-cho-truong-thanh-3-kg-1-250x300.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -45,7 +53,7 @@ module.exports = {
       Tăng cường sức khỏe xương khớp, tăng độ đàn hồi cho xương.
       Giúp đốt cháy chất béo, kiểm soát cân nặng. Từ đó giảm gánh nặng xương khớp cho thú cưng.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/nature-kitchen-xuong-khop-cho-cho-2-kg-4-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -61,7 +69,7 @@ module.exports = {
       + Bộ dây dắt & yếm còn là điểm nhấn nổi bật để thú cưng của bạn trông thật “sành điệu” trong mọi chuyến đi dạo hoặc chạy bộ đầy hứng khởi.
       + Với phần thiết kế dạng yếm ôm sát cực kỳ chắc chắn. Dây dắt được xem là “người phụ tá” đắc lực và lý tưởng giúp bạn dễ dàng “quản lý” các bé hiếu động và tinh nghịch.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2020/02/day_dat_yem_police_25mm-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -74,7 +82,7 @@ module.exports = {
       price: 70000,
       desc: `Áo đánh đàn là sản phẩm áo được thiết kế dành riêng cho chó mèo. Với thiết kế thoải mái, ấm áp dễ mặc, nhiều size khác nhau để phù hợp với nhiều giống chó, mèo ở các độ tuổi, cân nặng. Áo đánh đàn không chỉ là sản phẩm giữ ấm hoàn hảo cho thú cưng trong mùa đông. Mà còn giúp cún mèo cưng của bạn trở nên đáng yêu hơn.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -91,7 +99,7 @@ module.exports = {
       Hệ tiêu hóa hoạt động khỏe mạnh nhờ hoạt động của men vi sinh (Probiotic) và Inulin (Prebiotic)
       Lông bóng mượt nhờ sự cân bằng hoản hảo của Omega 3 và 6`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -109,7 +117,7 @@ module.exports = {
       Duy trì sức khỏe đường ruôt, hệ miễn dịch.
       Giúp hình thành cơ bắp chắc khỏe, giúp cho sự phát triển rắn chắc hơn.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -125,7 +133,7 @@ module.exports = {
       Tăng cường sức khỏe xương khớp, tăng độ đàn hồi cho xương.
       Giúp đốt cháy chất béo, kiểm soát cân nặng. Từ đó giảm gánh nặng xương khớp cho thú cưng.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -141,7 +149,7 @@ module.exports = {
       + Bộ dây dắt & yếm còn là điểm nhấn nổi bật để thú cưng của bạn trông thật “sành điệu” trong mọi chuyến đi dạo hoặc chạy bộ đầy hứng khởi.
       + Với phần thiết kế dạng yếm ôm sát cực kỳ chắc chắn. Dây dắt được xem là “người phụ tá” đắc lực và lý tưởng giúp bạn dễ dàng “quản lý” các bé hiếu động và tinh nghịch.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -154,7 +162,7 @@ module.exports = {
       price: 70000,
       desc: `Áo đánh đàn là sản phẩm áo được thiết kế dành riêng cho chó mèo. Với thiết kế thoải mái, ấm áp dễ mặc, nhiều size khác nhau để phù hợp với nhiều giống chó, mèo ở các độ tuổi, cân nặng. Áo đánh đàn không chỉ là sản phẩm giữ ấm hoàn hảo cho thú cưng trong mùa đông. Mà còn giúp cún mèo cưng của bạn trở nên đáng yêu hơn.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -171,7 +179,7 @@ module.exports = {
       Hệ tiêu hóa hoạt động khỏe mạnh nhờ hoạt động của men vi sinh (Probiotic) và Inulin (Prebiotic)
       Lông bóng mượt nhờ sự cân bằng hoản hảo của Omega 3 và 6`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -189,7 +197,7 @@ module.exports = {
       Duy trì sức khỏe đường ruôt, hệ miễn dịch.
       Giúp hình thành cơ bắp chắc khỏe, giúp cho sự phát triển rắn chắc hơn.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -205,7 +213,7 @@ module.exports = {
       Tăng cường sức khỏe xương khớp, tăng độ đàn hồi cho xương.
       Giúp đốt cháy chất béo, kiểm soát cân nặng. Từ đó giảm gánh nặng xương khớp cho thú cưng.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -221,7 +229,7 @@ module.exports = {
       + Bộ dây dắt & yếm còn là điểm nhấn nổi bật để thú cưng của bạn trông thật “sành điệu” trong mọi chuyến đi dạo hoặc chạy bộ đầy hứng khởi.
       + Với phần thiết kế dạng yếm ôm sát cực kỳ chắc chắn. Dây dắt được xem là “người phụ tá” đắc lực và lý tưởng giúp bạn dễ dàng “quản lý” các bé hiếu động và tinh nghịch.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -234,7 +242,7 @@ module.exports = {
       price: 70000,
       desc: `Áo đánh đàn là sản phẩm áo được thiết kế dành riêng cho chó mèo. Với thiết kế thoải mái, ấm áp dễ mặc, nhiều size khác nhau để phù hợp với nhiều giống chó, mèo ở các độ tuổi, cân nặng. Áo đánh đàn không chỉ là sản phẩm giữ ấm hoàn hảo cho thú cưng trong mùa đông. Mà còn giúp cún mèo cưng của bạn trở nên đáng yêu hơn.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -251,7 +259,7 @@ module.exports = {
       Hệ tiêu hóa hoạt động khỏe mạnh nhờ hoạt động của men vi sinh (Probiotic) và Inulin (Prebiotic)
       Lông bóng mượt nhờ sự cân bằng hoản hảo của Omega 3 và 6`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -269,7 +277,7 @@ module.exports = {
       Duy trì sức khỏe đường ruôt, hệ miễn dịch.
       Giúp hình thành cơ bắp chắc khỏe, giúp cho sự phát triển rắn chắc hơn.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -285,7 +293,7 @@ module.exports = {
       Tăng cường sức khỏe xương khớp, tăng độ đàn hồi cho xương.
       Giúp đốt cháy chất béo, kiểm soát cân nặng. Từ đó giảm gánh nặng xương khớp cho thú cưng.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -301,7 +309,7 @@ module.exports = {
       + Bộ dây dắt & yếm còn là điểm nhấn nổi bật để thú cưng của bạn trông thật “sành điệu” trong mọi chuyến đi dạo hoặc chạy bộ đầy hứng khởi.
       + Với phần thiết kế dạng yếm ôm sát cực kỳ chắc chắn. Dây dắt được xem là “người phụ tá” đắc lực và lý tưởng giúp bạn dễ dàng “quản lý” các bé hiếu động và tinh nghịch.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -314,7 +322,7 @@ module.exports = {
       price: 70000,
       desc: `Áo đánh đàn là sản phẩm áo được thiết kế dành riêng cho chó mèo. Với thiết kế thoải mái, ấm áp dễ mặc, nhiều size khác nhau để phù hợp với nhiều giống chó, mèo ở các độ tuổi, cân nặng. Áo đánh đàn không chỉ là sản phẩm giữ ấm hoàn hảo cho thú cưng trong mùa đông. Mà còn giúp cún mèo cưng của bạn trở nên đáng yêu hơn.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -331,7 +339,7 @@ module.exports = {
       Hệ tiêu hóa hoạt động khỏe mạnh nhờ hoạt động của men vi sinh (Probiotic) và Inulin (Prebiotic)
       Lông bóng mượt nhờ sự cân bằng hoản hảo của Omega 3 và 6`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -349,7 +357,7 @@ module.exports = {
       Duy trì sức khỏe đường ruôt, hệ miễn dịch.
       Giúp hình thành cơ bắp chắc khỏe, giúp cho sự phát triển rắn chắc hơn.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -365,7 +373,7 @@ module.exports = {
       Tăng cường sức khỏe xương khớp, tăng độ đàn hồi cho xương.
       Giúp đốt cháy chất béo, kiểm soát cân nặng. Từ đó giảm gánh nặng xương khớp cho thú cưng.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -381,7 +389,7 @@ module.exports = {
       + Bộ dây dắt & yếm còn là điểm nhấn nổi bật để thú cưng của bạn trông thật “sành điệu” trong mọi chuyến đi dạo hoặc chạy bộ đầy hứng khởi.
       + Với phần thiết kế dạng yếm ôm sát cực kỳ chắc chắn. Dây dắt được xem là “người phụ tá” đắc lực và lý tưởng giúp bạn dễ dàng “quản lý” các bé hiếu động và tinh nghịch.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -394,7 +402,7 @@ module.exports = {
       price: 70000,
       desc: `Áo đánh đàn là sản phẩm áo được thiết kế dành riêng cho chó mèo. Với thiết kế thoải mái, ấm áp dễ mặc, nhiều size khác nhau để phù hợp với nhiều giống chó, mèo ở các độ tuổi, cân nặng. Áo đánh đàn không chỉ là sản phẩm giữ ấm hoàn hảo cho thú cưng trong mùa đông. Mà còn giúp cún mèo cưng của bạn trở nên đáng yêu hơn.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -411,7 +419,7 @@ module.exports = {
       Hệ tiêu hóa hoạt động khỏe mạnh nhờ hoạt động của men vi sinh (Probiotic) và Inulin (Prebiotic)
       Lông bóng mượt nhờ sự cân bằng hoản hảo của Omega 3 và 6`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -429,7 +437,7 @@ module.exports = {
       Duy trì sức khỏe đường ruôt, hệ miễn dịch.
       Giúp hình thành cơ bắp chắc khỏe, giúp cho sự phát triển rắn chắc hơn.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -445,7 +453,7 @@ module.exports = {
       Tăng cường sức khỏe xương khớp, tăng độ đàn hồi cho xương.
       Giúp đốt cháy chất béo, kiểm soát cân nặng. Từ đó giảm gánh nặng xương khớp cho thú cưng.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -461,7 +469,7 @@ module.exports = {
       + Bộ dây dắt & yếm còn là điểm nhấn nổi bật để thú cưng của bạn trông thật “sành điệu” trong mọi chuyến đi dạo hoặc chạy bộ đầy hứng khởi.
       + Với phần thiết kế dạng yếm ôm sát cực kỳ chắc chắn. Dây dắt được xem là “người phụ tá” đắc lực và lý tưởng giúp bạn dễ dàng “quản lý” các bé hiếu động và tinh nghịch.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',
@@ -474,7 +482,7 @@ module.exports = {
       price: 70000,
       desc: `Áo đánh đàn là sản phẩm áo được thiết kế dành riêng cho chó mèo. Với thiết kế thoải mái, ấm áp dễ mặc, nhiều size khác nhau để phù hợp với nhiều giống chó, mèo ở các độ tuổi, cân nặng. Áo đánh đàn không chỉ là sản phẩm giữ ấm hoàn hảo cho thú cưng trong mùa đông. Mà còn giúp cún mèo cưng của bạn trở nên đáng yêu hơn.`,
       quantity: 100,
-      img: `https://dogily.vn/wp-content/uploads/2021/12/msg-684918299-905-510x510.jpg`,
+      img: img[Math.floor((Math.random()*5))],
       provider: 'Công Ty TNHH Trung Nhân',
       import_id: 1,
       color: '',

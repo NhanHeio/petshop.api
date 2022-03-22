@@ -45,6 +45,38 @@ const handleCheckoutOrder = async (req, res) => {
     })
 }
 
+const handleGetOrderUser = async (req, res) => {
+    let userID = req.query.userID
+    let order = await cartService.getOrderUser(userID)
+    return res.status(200).json({
+        errCode: order.errCode,
+        errMessage: order.errMessage,
+        orderList: order ? order.orderList : {}
+    })
+
+}
+
+const handleGetOrder = async (req, res) => {
+    let id = req.query.id
+    let orderItem = await cartService.getOrder(id)
+    return res.status(200).json({
+        errCode: orderItem.errCode,
+        errMessage: orderItem.errMessage,
+        orderItem: orderItem ? orderItem.order : {}
+    })
+}
+
+const handleCancelOrder = async (req, res) => {
+    let id = req.query.id
+    let userID = req.query.userID
+    let order = await cartService.cancelOrder(id,userID)
+    return res.status(200).json({
+        errCode: order.errCode,
+        errMessage: order.errMessage,
+        orderList: order ? order.orderList : {}
+    })
+}
+
 const handleCreatePayment = (req, res, next) => {
     var ipAddr = req.headers['x-forwarded-for'] ||
         req.connection.remoteAddress ||
@@ -163,6 +195,9 @@ module.exports = {
     handleDeleteCartProduct: handleDeleteCartProduct,
     handleAddToCart: handleAddToCart,
     handleCheckoutOrder: handleCheckoutOrder,
+    handleGetOrderUser: handleGetOrderUser,
+    handleGetOrder: handleGetOrder,
+    handleCancelOrder: handleCancelOrder,
     handleCreatePayment: handleCreatePayment,
     vnpay_ipn: vnpay_ipn,
     handleReturnPayment: handleReturnPayment,

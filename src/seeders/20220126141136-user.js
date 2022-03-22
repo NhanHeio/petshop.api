@@ -9,7 +9,7 @@ module.exports = {
       name: 'Ho Trung Nhan',
       phone_number: '0774000828',
       address: '123 ấp Trường Hòa A, xã Trường Long A, Châu Thành A, Hậu Giang',
-      email: 'hotrungnhan@gmail.com',
+      email: 'hotrungnhan2000@gmail.com',
       birthday: new Date(),
       password: password,
       role_id: 1,

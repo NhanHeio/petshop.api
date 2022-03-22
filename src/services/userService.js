@@ -48,7 +48,7 @@ let handleUserSignup = (name, email, phonenumber, password, password2) => {
                     if (password === password2) {
                         const salt = bcrypt.genSaltSync(10);
                         const passwordBcrypt = bcrypt.hashSync(password, salt);
-                        db.User.create({
+                        await db.User.create({
                             name: name,
                             phone_number: phonenumber,
                             email: email,
@@ -72,12 +72,12 @@ let handleUserSignup = (name, email, phonenumber, password, password2) => {
                         }
                     }
                 } else {
-                        userData = {
-                            errCode: 7,
-                            message: 'Phone Number is not correct or used'
-                        }
+                    userData = {
+                        errCode: 7,
+                        message: 'Phone Number is not correct or used'
                     }
-                
+                }
+
             } else {
                 userData = {
                     errCode: 6,
@@ -85,7 +85,132 @@ let handleUserSignup = (name, email, phonenumber, password, password2) => {
                 }
             }
             resolve(userData)
-        
+
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let updateUserInfo = (name, email, phoneNumber, address) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let userInfo = {}
+            let user = ''
+            user = await db.User.findOne({
+                where: { email: email }
+            })
+            if (user) {
+                await db.User.update({
+                    name: name,
+                    phone_number: phoneNumber,
+                    address: address,
+                    updatedAt: new Date()
+                }, {
+                    where: { email: email }
+                })
+                user = await db.User.findOne({
+                    where: { email: email }
+                })
+                delete user.password;
+
+                resolve(userInfo = {
+                    user,
+                    errCode: 0,
+                    errMessage: 'Update user successfully!'
+                })
+            } else {
+                resolve(userInfo = {
+                    errCode: 1,
+                    errMessage: 'Could not find user'
+                })
+            }
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let updateUserAvatar = (email, img) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let userInfo = {}
+            let user = await db.User.findOne({
+                where: { email: email }
+            })
+            if (user) {
+                await db.User.update({
+                    img: img,
+                    updatedAt: new Date()
+                }, {
+                    where: { email: email }
+                })
+                user = await db.User.findOne({
+                    where: { email: email }
+                })
+                delete user.password;
+                resolve(userInfo = {
+                    errCode: 0,
+                    errMessage: 'Update avatar successfully!',
+                    user
+                })
+            } else {
+                resolve(userInfo = {
+                    errCode: 1,
+                    errMessage: 'Could not find user!'
+                })
+            }
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let handleUpdateUserPassword = (email, oldPassword, newPassword, newPassword2) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = ''
+            let userData = {}
+            let userExist = await checkUserEmail(email)
+            if (userExist) {
+                user = await db.User.findOne({
+                    where: { email: email },
+                    raw: true
+                })
+                if (user) {
+                    let check = await bcrypt.compareSync(oldPassword, user.password);
+                    if (check) {
+                        if (newPassword === newPassword2) {
+                            const salt = bcrypt.genSaltSync(10);
+                            const passwordBcrypt = bcrypt.hashSync(newPassword, salt);
+                            await db.User.update({
+                                password: passwordBcrypt,
+                                updatedAt: new Date()
+                            },{
+                                where: { email: email }
+                            })
+                            resolve(userData = {
+                                errCode: 0,
+                                errMessage: 'Update password successfully!'
+                            })
+                        }else{
+                            resolve(userData = {
+                                errCode: 3,
+                                errMessage: 'Retype new password is not same as new password!'
+                            })
+                        }
+                    }else{
+                        resolve(userData = {
+                            errCode: 2,
+                            errMessage: 'Wrong password!'
+                        })
+                    }
+                }
+            }
+            resolve(userData = {
+                errCode: 1,
+                errMessage: 'User not found!'
+            })
         } catch (e) {
             reject(e);
         }
@@ -121,4 +246,7 @@ module.exports = {
     handleUserLogin: handleUserLogin,
     checkUserEmail: checkUserEmail,
     handleUserSignup: handleUserSignup,
+    updateUserInfo: updateUserInfo,
+    updateUserAvatar: updateUserAvatar,
+    handleUpdateUserPassword: handleUpdateUserPassword,
 }
