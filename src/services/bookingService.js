@@ -41,7 +41,6 @@ let booking = (userID, userName, service, date, time) => {
             let html = '<p>Khách hàng <b>' + user.name + ' </b>đã đặt lịch sử dụng dịch vụ <b>' + service + '</b> vào ngày <b>'+ time+ ' ' + date+ '</b></p>'
             // console.log(text)
             sendEmail(admin.email,subject,html)
-            resolve(booking)
         } catch (e) {
             reject(e);
         }
