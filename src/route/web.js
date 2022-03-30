@@ -4,7 +4,9 @@ import userController from '../controllers/userController';
 import productController from '../controllers/productController';
 import cartController from '../controllers/cartController';
 import bookingController from '../controllers/bookingController';
-const upload = require('../middleware/upload');
+import adminController from '../controllers/adminController';
+const uploadAvatar = require('../middleware/uploadAvatar');
+const uploadProduct = require('../middleware/uploadProduct');
 
 let router = express.Router();
 
@@ -24,7 +26,7 @@ let initWebRoutes = (app) => {
     router.post('/api/login', userController.handleLogin)
     router.post('/api/signup', userController.handleSignup)
     router.post('/api/update-user-info', userController.handleUpdateUserInfo)
-    router.post('/api/upload-avatar', upload.single("image"), userController.handleUploadAvatar)
+    router.post('/api/upload-avatar', uploadAvatar.single("image"), userController.handleUploadAvatar)
     router.post('/api/update-user-password', userController.handleUpdateUserPassword)
     //product
     router.get(`/api/get-all-products`, productController.handleGetAllProducts)
@@ -52,6 +54,17 @@ let initWebRoutes = (app) => {
     router.get(`/api/get-booking/user`, bookingController.handleGetBookingUser)
     router.post('/api/cancel-booking', bookingController.handleCancelBooking)
 
+    //admin
+    router.get('/api/admin/get-overview',adminController.handleCheckAdmin, adminController.handleGetOverview)
+    router.get('/api/admin/get-order',adminController.handleCheckAdmin,  adminController.handleAdminGetOrder)
+    router.post('/api/admin/cancel-order',adminController.handleCheckAdmin,  adminController.handleAdminCancelOrder)
+    router.post('/api/admin/confirm-order',adminController.handleCheckAdmin,  adminController.handleAdminConfirmOrder)
+    router.get('/api/admin/get-booking',adminController.handleCheckAdmin,  adminController.handleAdminGetBooking)
+    router.get('/api/admin/get-all-user',adminController.handleCheckAdmin, adminController.handleGetAllUser)
+    router.post('/api/admin/add-new-admin',adminController.handleCheckAdmin, adminController.handleAddNewAdmin)
+    router.get('/api/admin/get-all-products',adminController.handleCheckAdmin, adminController.handleGetAllProducts)
+    router.get('/api/admin/get-product-info',adminController.handleCheckAdmin, adminController.handleGetProductInfo)
+    router.post('/api/admin/update-product', uploadProduct.single("image"), adminController.handleUpdateProduct)
     return app.use("/", router)
 }
 

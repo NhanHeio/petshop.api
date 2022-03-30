@@ -3,8 +3,8 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('CartItems',[{
-      cart_id: 1,
-      product_id: 1,
+      cart_id: 4,
+      product_id: 4,
       product_name: 'Equilibrio',
       img: `https://dogily.vn/wp-content/uploads/2021/12/hat-equilibrio-cho-cho-truong-thanh-1.jpg`,
       price: 298000,
@@ -13,8 +13,8 @@ module.exports = {
       updatedAt: new Date()
     },
     {
-      cart_id: 1,
-      product_id: 2,
+      cart_id: 4,
+      product_id: 24,
       product_name: 'Dog Mania',
       img: `https://dogily.vn/wp-content/uploads/2021/12/dog-mania-cho-cho-truong-thanh-3-kg-1-250x300.jpg`,
       price: 280000,

@@ -12,10 +12,11 @@ const handleGetBooking = async (req, res) => {
 
 const handleBooking = async (req, res) => {
     let userID = req.query.userID
+    let userName = req.query.userName
     let service = req.query.service
     let date = req.query.date
     let time = req.query.time
-    let booking = bookingService.booking(userID, service, date, time)
+    let booking = bookingService.booking(userID, userName, service, date, time)
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Booking successfully!',

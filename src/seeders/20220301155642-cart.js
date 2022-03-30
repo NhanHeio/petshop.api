@@ -3,7 +3,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Carts',[{
-      user_id: 3,
+      user_id: 34,
       quantity: 2,
       total_price: 578000,
       createdAt: new Date(),

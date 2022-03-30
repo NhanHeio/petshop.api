@@ -39,6 +39,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 5
       },
+      total_rate: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

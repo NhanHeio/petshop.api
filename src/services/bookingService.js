@@ -18,12 +18,13 @@ let getBooking = (date) => {
 
 }
 
-let booking = (userID, service, date, time) => {
+let booking = (userID, userName, service, date, time) => {
     return new Promise(async (resolve, reject) => {
         try {
             let booking = await db.Booking.create({
                 service: service,
                 user_id: userID,
+                username: userName,
                 date: date,
                 time: time,
                 createdAt: new Date(),
@@ -105,7 +106,7 @@ let cancelBooking = (userID,id) => {
                 errMessage: 'Could not find user!'
             })
         }catch (e) {
-
+            reject(e);
         }
     })
 }
