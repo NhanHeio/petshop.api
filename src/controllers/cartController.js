@@ -1,5 +1,6 @@
 import cartService from '../services/cartService';
 import queryString from 'query-string';
+require('dotenv').config();
 const handleGetCart = async (req, res) => {
     let user_id = req.query.user_id
     let cart = await cartService.getCart(user_id)
@@ -24,7 +25,7 @@ const handleAddToCart = async (req, res) => {
     let user_id = parseInt(req.query.user_id)
     let product_id = parseInt(req.query.product_id)
     let quantity = parseInt(req.query.quantity)
-    let cart = await cartService.addToCart(user_id,product_id,quantity)
+    let cart = await cartService.addToCart(user_id, product_id, quantity)
     return res.status(200).json({
         cart,
         errCode: 0,
@@ -37,12 +38,13 @@ const handleCheckoutOrder = async (req, res) => {
     let name = req.body.name
     let phoneNumber = req.body.phoneNumber
     let address = req.body.address
-    let order = await cartService.checkoutOrder(user_id,name,phoneNumber,address)
+    let order = await cartService.checkoutOrder(user_id, name, phoneNumber, address)
     return res.status(200).json({
         order,
         errCode: 0,
         errMessage: 'Checkout order successfully'
     })
+
 }
 
 const handleGetOrderUser = async (req, res) => {
@@ -69,7 +71,7 @@ const handleGetOrder = async (req, res) => {
 const handleCancelOrder = async (req, res) => {
     let id = req.query.id
     let userID = req.query.userID
-    let order = await cartService.cancelOrder(id,userID)
+    let order = await cartService.cancelOrder(id, userID)
     return res.status(200).json({
         errCode: order.errCode,
         errMessage: order.errMessage,
@@ -86,7 +88,7 @@ const handleCreatePayment = (req, res, next) => {
     var config = require('config');
     var dateFormat = require('dateformat');
 
-    
+
     var tmnCode = config.get('vnp_TmnCode');
     var secretKey = config.get('vnp_HashSecret');
     var vnpUrl = config.get('vnp_Url');
@@ -98,11 +100,11 @@ const handleCreatePayment = (req, res, next) => {
     var orderId = dateFormat(date, 'HHmmss');
     var amount = req.body.amount;
     var bankCode = req.body.bankCode;
-    
+
     var orderInfo = req.body.orderDescription;
     var orderType = req.body.orderType;
     var locale = req.body.language;
-    if(locale === null || locale === ''){
+    if (locale === null || locale === '') {
         locale = 'vn';
     }
     var currCode = 'VND';
@@ -120,16 +122,16 @@ const handleCreatePayment = (req, res, next) => {
     vnp_Params['vnp_ReturnUrl'] = returnUrl;
     vnp_Params['vnp_IpAddr'] = ipAddr;
     vnp_Params['vnp_CreateDate'] = createDate;
-    if(bankCode !== null && bankCode !== ''){
+    if (bankCode !== null && bankCode !== '') {
         vnp_Params['vnp_BankCode'] = bankCode;
     }
 
     vnp_Params = sortObject(vnp_Params);
 
     var signData = queryString.stringify(vnp_Params, { encode: false });
-    var crypto = require("crypto");     
+    var crypto = require("crypto");
     var hmac = crypto.createHmac("sha512", secretKey);
-    var signed = hmac.update(new Buffer(signData, 'utf-8')).digest("hex"); 
+    var signed = hmac.update(new Buffer(signData, 'utf-8')).digest("hex");
     vnp_Params['vnp_SecureHash'] = signed;
     vnpUrl += '?' + queryString.stringify(vnp_Params, { encode: false });
 
@@ -147,19 +149,19 @@ const vnpay_ipn = async (req, res, next) => {
     var config = require('config');
     var secretKey = config.get('vnp_HashSecret');
     var signData = queryString.stringify(vnp_Params, { encode: false });
-    var crypto = require("crypto");     
+    var crypto = require("crypto");
     var hmac = crypto.createHmac("sha512", secretKey);
-    var signed = hmac.update(new Buffer(signData, 'utf-8')).digest("hex");     
-     
+    var signed = hmac.update(new Buffer(signData, 'utf-8')).digest("hex");
 
-    if(secureHash === signed){
+
+    if (secureHash === signed) {
         var orderId = vnp_Params['vnp_TxnRef'];
         var rspCode = vnp_Params['vnp_ResponseCode'];
         //Kiem tra du lieu co hop le khong, cap nhat trang thai don hang va gui ket qua cho VNPAY theo dinh dang duoi
-        res.status(200).json({RspCode: '00', Message: 'success'})
+        res.status(200).json({ RspCode: '00', Message: 'success' })
     }
     else {
-        res.status(200).json({RspCode: '97', Message: 'Fail checksum'})
+        res.status(200).json({ RspCode: '97', Message: 'Fail checksum' })
     }
 }
 
@@ -178,15 +180,15 @@ const handleReturnPayment = (req, res, next) => {
     var secretKey = config.get('vnp_HashSecret');
 
     var signData = queryString.stringify(vnp_Params, { encode: false });
-    var crypto = require("crypto");     
+    var crypto = require("crypto");
     var hmac = crypto.createHmac("sha512", secretKey);
-    var signed = hmac.update(new Buffer(signData, 'utf-8')).digest("hex");     
+    var signed = hmac.update(new Buffer(signData, 'utf-8')).digest("hex");
 
-    if(secureHash === signed){
+    if (secureHash === signed) {
 
-        res.render('success', {code: vnp_Params['vnp_ResponseCode']})
-    } else{
-        res.render('success', {code: '97'})
+        res.render('success', { code: vnp_Params['vnp_ResponseCode'] })
+    } else {
+        res.render('success', { code: '97' })
     }
 }
 
