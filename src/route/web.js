@@ -39,7 +39,7 @@ let initWebRoutes = (app) => {
     router.delete(`/api/delete-cart-product`, cartController.handleDeleteCartProduct)
     router.post(`/api/add-to-cart`, cartController.handleAddToCart)
     router.post(`/api/checkout-order`, cartController.handleCheckoutOrder)
-    router.post(`/api/checkout-and-pay-order`, cartController.handleCreatePayment)
+    router.post(`/api/checkout-and-pay-order`, cartController.handleCheckoutAndPayOrder)
     router.get(`/api/get-order/user`, cartController.handleGetOrderUser)
     router.get(`/api/get-order/order`, cartController.handleGetOrder)
     router.post(`/api/cancel-order`, cartController.handleCancelOrder)

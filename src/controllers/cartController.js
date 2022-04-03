@@ -44,7 +44,18 @@ const handleCheckoutOrder = async (req, res) => {
         errCode: 0,
         errMessage: 'Checkout order successfully'
     })
-
+}
+const handleCheckoutAndPayOrder = async (req, res) => {
+    let user_id = parseInt(req.query.user_id)
+    let name = req.body.name
+    let phoneNumber = req.body.phoneNumber
+    let address = req.body.address
+    let order = await cartService.checkoutAndPayOrder( user_id, name, phoneNumber, address)
+    return res.status(200).json({
+        order,
+        errCode: 0,
+        errMessage: 'Checkout order successfully'
+    })
 }
 
 const handleGetOrderUser = async (req, res) => {
@@ -210,6 +221,7 @@ module.exports = {
     handleDeleteCartProduct: handleDeleteCartProduct,
     handleAddToCart: handleAddToCart,
     handleCheckoutOrder: handleCheckoutOrder,
+    handleCheckoutAndPayOrder: handleCheckoutAndPayOrder,
     handleGetOrderUser: handleGetOrderUser,
     handleGetOrder: handleGetOrder,
     handleCancelOrder: handleCancelOrder,

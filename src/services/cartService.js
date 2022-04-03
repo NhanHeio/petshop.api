@@ -236,6 +236,87 @@ let checkoutOrder = (user_id, name, phoneNumber, address) => {
     })
 }
 
+let checkoutAndPayOrder = (user_id, name, phoneNumber, address) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let cart = await db.Cart.findOne({
+                where: { user_id: user_id }
+            })
+            let cartItems = await db.CartItem.findAll({
+                where: { cart_id: cart.id },
+            })
+            await db.Order.create({
+                user_id: user_id,
+                username: name,
+                phone_number: phoneNumber,
+                address: address,
+                total_price: cart.total_price,
+                status: "Paid",
+                createdAt: new Date(),
+                updatedAt: new Date()
+            })
+            let admin = await db.User.findOne({
+                where: { role_id: 1}
+            })
+            let subject = 'Notifications for client order'
+            let html = '<p>Khách hàng <b>' + name + ' </b>đã đặt hàng trên hệ thống PetShop.</p> <br> ' + 
+            '<a hrep=`localhost:3000/dashboard`>Chi tiết đơn hàng</a> '
+            sendEmail(admin.email,subject,html)
+            let order = await db.Order.findOne({
+                where: { user_id: user_id },
+                order: [
+                    ['id', 'DESC']
+                ]
+            })
+
+            await cartItems.forEach(async(item) => {
+                await db.OrderItem.create({
+                    order_id: order.id,
+                    product_id: item.product_id,
+                    product_name: item.product_name,
+                    price: item.price,
+                    quantity: item.quantity,
+                    img: item.img,
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                })
+                let product = await db.Product.findOne({
+                    where: { id: item.product_id}
+                })
+                let productSold = await db.Sold.findOne({
+                    where: { id: item.product_id}
+                })
+                if(productSold){
+                    await db.Sold.update({
+                        quantity : productSold.quantity + item.quantity,
+                        updatedAt: new Date()
+                    },{
+                        where: {product_id: productSold.product_id}
+                    })
+                }else{
+                    await db.Sold.create({
+                        product_id: product.id,
+                        name: product.name,
+                        type_id: product.type_id,
+                        quantity: item.quantity,
+                        createdAt: new Date(),
+                        updatedAt: new Date()
+                    })
+                }
+                await db.CartItem.destroy({
+                    where: { id: item.id },
+                })
+            });
+            await db.Cart.destroy({
+                where: { user_id: user_id }
+            })
+            resolve(order)
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 let getOrderUser = (userID) => {
     return new Promise(async (resolve, reject) => {
         try {
