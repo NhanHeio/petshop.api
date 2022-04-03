@@ -155,7 +155,7 @@ let addToCart = (user_id, product_id, quantity) => {
     })
 }
 
-let checkoutOrder = (user_id, name, phoneNumber, address) => {
+let checkoutOrder = (orderId, user_id, name, phoneNumber, address) => {
     return new Promise(async (resolve, reject) => {
         try {
             let cart = await db.Cart.findOne({
@@ -166,6 +166,7 @@ let checkoutOrder = (user_id, name, phoneNumber, address) => {
             })
             await db.Order.create({
                 user_id: user_id,
+                order_id: orderId,
                 username: name,
                 phone_number: phoneNumber,
                 address: address,

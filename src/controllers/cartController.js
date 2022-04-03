@@ -38,7 +38,8 @@ const handleCheckoutOrder = async (req, res) => {
     let name = req.body.name
     let phoneNumber = req.body.phoneNumber
     let address = req.body.address
-    let order = await cartService.checkoutOrder(user_id, name, phoneNumber, address)
+    let orderId = req.body.orderId
+    let order = await cartService.checkoutOrder(orderId, user_id, name, phoneNumber, address)
     return res.status(200).json({
         order,
         errCode: 0,
@@ -96,12 +97,12 @@ const handleCreatePayment = (req, res, next) => {
     let date = new Date();
 
     let createDate = dateFormat(date, 'yyyymmddHHmmss');
-    let orderId = dateFormat(date, 'HHmmss');
+    let orderId = req.body.orderId
     let amount = req.body.amount;
-    let bankCode = req.body.bankCode;
+    let bankCode = req.body.bankCode || '';
 
-    let orderInfo = req.body.orderDescription;
-    let orderType = req.body.orderType;
+    let orderInfo = req.body.name + ' ' + req.body.phoneNumber + ' ' + req.body.address;
+    let orderType = 270000;
     let locale = req.body.language;
     if (locale === null || locale === '') {
         locale = 'vn';
@@ -173,9 +174,8 @@ const handleReturnPayment = (req, res, next) => {
 
     vnp_Params = sortObject(vnp_Params);
 
-    let config = require('config');
-    let tmnCode = config.get('vnp_TmnCode');
-    let secretKey = config.get('vnp_HashSecret');
+    let tmnCode = process.env.vnp_TmnCode
+    let secretKey = process.env.vnp_HashSecret
 
     let signData = queryString.stringify(vnp_Params, { encode: false });
     let crypto = require("crypto");
