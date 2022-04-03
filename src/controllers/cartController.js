@@ -38,8 +38,7 @@ const handleCheckoutOrder = async (req, res) => {
     let name = req.body.name
     let phoneNumber = req.body.phoneNumber
     let address = req.body.address
-    let orderId = req.body.orderId
-    let order = await cartService.checkoutOrder(orderId, user_id, name, phoneNumber, address)
+    let order = await cartService.checkoutOrder( user_id, name, phoneNumber, address)
     return res.status(200).json({
         order,
         errCode: 0,
@@ -97,7 +96,7 @@ const handleCreatePayment = (req, res, next) => {
     let date = new Date();
 
     let createDate = dateFormat(date, 'yyyymmddHHmmss');
-    let orderId = req.body.orderId
+    let orderId = dateFormat(date, 'HHmmss');
     let amount = req.body.amount;
     let bankCode = req.body.bankCode || '';
 
