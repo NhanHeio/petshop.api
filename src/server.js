@@ -7,7 +7,7 @@ require('dotenv').config();
 let app = express();
 var cors = require('cors')
 app.use(cors({
-    origin: "https://petshop-react.herokuapp.com",
+    origin: process.env.FRONTEND_URL,
     credentials: true,
 }))
 
