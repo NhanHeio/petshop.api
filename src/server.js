@@ -5,11 +5,14 @@ import initWebRoutes from './route/web';
 import connectDB from './config/connectDB';
 require('dotenv').config();
 let app = express();
-var cors = require('cors')
-app.use(cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-}))
+const corsOptions = {
+    origin: '*',
+    credentials: true, //access-control-allow-credentials:true
+    optionSuccessStatus: 200,
+  }
+  
+  app.use(cors(corsOptions)) // Use this after the variable declaration
+  
 
 // Add headers before the routes are defined
 // app.use(function (req, res, next) {
