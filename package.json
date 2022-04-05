@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec babel-node src/server.js"
+    "start:dev": "nodemon --exec babel-node src/server.js",
+    "start": "node --exec babel-node src/server.js"
   },
   "repository": {
     "type": "git",
@@ -23,9 +24,9 @@
   },
   "homepage": "https://github.com/NhanHeio/petshop.api#readme",
   "dependencies": {
-    "@babel/core": "^7.17.8",
-    "@babel/node": "^7.16.8",
-    "@babel/preset-env": "^7.16.11",
+    "@babel/core": "7.17.8",
+    "@babel/node": "7.16.8",
+    "@babel/preset-env": "7.16.11",
     "@sequelize/core": "^7.0.0-alpha.10",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.1",
@@ -40,10 +41,12 @@
     "multer": "^1.4.4",
     "mysql2": "^2.3.3",
     "nodemailer": "^6.7.2",
-    "nodemon": "^2.0.15",
     "query-string": "^7.1.1",
     "sequelize": "^6.14.1",
     "sequelize-cli": "^6.4.1",
     "sha256": "^0.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.15"
   }
 }

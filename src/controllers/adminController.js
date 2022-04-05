@@ -125,7 +125,6 @@ const handleGetProductInfo = async (req, res) => {
     })
 }
 const handleUpdateProduct = async (req, res) => {
-    console.log('----------------------------')
     let productID = req.body.productID
     let name = req.body.name
     let type_id = req.body.type_id

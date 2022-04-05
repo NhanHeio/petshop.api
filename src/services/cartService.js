@@ -401,6 +401,7 @@ module.exports = {
     deleteCartProduct: deleteCartProduct,
     addToCart: addToCart,
     checkoutOrder: checkoutOrder,
+    checkoutAndPayOrder: checkoutAndPayOrder,
     getOrderUser: getOrderUser,
     getOrder: getOrder,
     cancelOrder: cancelOrder,

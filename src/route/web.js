@@ -45,9 +45,6 @@ let initWebRoutes = (app) => {
     router.post(`/api/cancel-order`, cartController.handleCancelOrder)
 
     //payment vnpay
-    router.post('/api//create_payment_url', cartController.handleCreatePayment)
-    router.get('/api/vnpay_ipn', cartController.vnpay_ipn)
-    router.get('/api/vnpay_return', cartController.handleReturnPayment)
 
     //booking
     router.get(`/api/get-booking-calendar`, bookingController.handleGetBooking)
