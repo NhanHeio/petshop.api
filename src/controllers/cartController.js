@@ -1,6 +1,4 @@
 import cartService from '../services/cartService';
-import queryString from 'query-string';
-require('dotenv').config();
 const handleGetCart = async (req, res) => {
     let user_id = req.query.user_id
     let cart = await cartService.getCart(user_id)
