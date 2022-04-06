@@ -114,6 +114,19 @@ const handleGetAllProducts = async (req, res) => {
     })
 }
 
+const handleGetProductSoldOut = async (req, res) => {
+    let userID = req.query.userID
+    let page = req.query.page || 1
+    let products = await adminService.getAProductSoldOut(userID,page)
+    let totalPages = Math.ceil(products.product.count / 15)
+    return res.status(200).json({
+        errCode: products.errCode,
+        errMessage: products.errMessage,
+        product: products ? products.product : {},
+        totalPages
+    })
+}
+
 const handleGetProductInfo = async (req, res) => {
     let userID = req.query.userID
     let productID = req.query.productID
@@ -132,7 +145,8 @@ const handleUpdateProduct = async (req, res) => {
     let desc = req.body.desc
     let quantity = req.body.quantity
     let provider = req.body.provider
-    let img = req.file.filename
+    let img = req?.file?.filename || ""
+    console.log(img)
     let product = await adminService.updateProduct(productID, name, type_id, price, desc,quantity,provider,img)
     return res.status(200).json({
         errCode: product.errCode,
@@ -150,6 +164,7 @@ module.exports = {
     handleGetAllUser: handleGetAllUser,
     handleAddNewAdmin: handleAddNewAdmin,
     handleGetAllProducts: handleGetAllProducts,
+    handleGetProductSoldOut: handleGetProductSoldOut,
     handleGetProductInfo: handleGetProductInfo,
     handleUpdateProduct: handleUpdateProduct,
 }

@@ -19,6 +19,10 @@ let getAllProducts = (page,name,type_id) => {
                                     desc: {
                                         [Op.like]: '%'+name+'%'
                                     }
+                                },{
+                                    quantity: {
+                                        [Op.gt]: 0
+                                    }
                                 }
                             ]
                         }

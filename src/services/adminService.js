@@ -475,6 +475,47 @@ let getAllProducts = (userID, page) => {
     })
 }
 
+let getAProductSoldOut = (userID, page) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let products = {}
+            let product = ''
+            const perPage = 15
+            let isAdmin = await db.User.findOne({
+                where: { id: userID }
+            })
+            if (isAdmin) {
+                if (isAdmin.role_id === 1 || isAdmin.role_id === 2) {
+                    product = await db.Product.findAndCountAll({
+                        where: {
+                            quantity: {[Op.lt]: 10}
+                        }
+                    },
+                    {
+                        offset: perPage * (page - 1),
+                        limit: perPage,
+                    })
+                    resolve(products = {
+                        errCode: 0,
+                        errMessage: 'Get all user by admin successfully!',
+                        product
+                    })
+                }
+                resolve(products = {
+                    errCode: 2,
+                    errMessage: 'You are not allowed to access this page!'
+                })
+            }
+            resolve(products = {
+                errCode: 1,
+                errMessage: 'User not found!'
+            })
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 let getProductInfo = (userID,productID) => {
     return new Promise(async (resolve, reject) => {
         try{
@@ -521,18 +562,33 @@ let updateProduct = (productID, name, type_id, price, desc,quantity,provider,img
                 where: { id: productID}
             })
             if(product){
-                await db.Product.update({
-                    name: name,
-                    type_id: type_id,
-                    price: price,
-                    desc: desc,
-                    quantity: quantity,
-                    provider: provider,
-                    img: img,
-                    updatedAt: new Date()
-                },{
-                    where: {id: productID}
-                })
+                console.log(img)
+                if(img){
+                    await db.Product.update({
+                        name: name,
+                        type_id: type_id,
+                        price: price,
+                        desc: desc,
+                        quantity: quantity,
+                        provider: provider,
+                        img: img,
+                        updatedAt: new Date()
+                    },{
+                        where: {id: productID}
+                    })
+                }else{
+                    await db.Product.update({
+                        name: name,
+                        type_id: type_id,
+                        price: price,
+                        desc: desc,
+                        quantity: quantity,
+                        provider: provider,
+                        updatedAt: new Date()
+                    },{
+                        where: {id: productID}
+                    })
+                }
                 product = await db.Product.findOne({
                     where: { id: productID}
                 })
@@ -541,18 +597,19 @@ let updateProduct = (productID, name, type_id, price, desc,quantity,provider,img
                     errMessage: 'Update product successfully!',
                     product
                 })
+            }else{
+                await db.Product.create({
+                    name: name,
+                    type_id: type_id,
+                    price: price,
+                    desc: desc,
+                    quantity: quantity,
+                    provider: provider,
+                    img: img,
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                })
             }
-            await db.Product.create({
-                name: name,
-                type_id: type_id,
-                price: price,
-                desc: desc,
-                quantity: quantity,
-                provider: provider,
-                img: img,
-                createdAt: new Date(),
-                updatedAt: new Date()
-            })
             resolve({
                 errCode: 0,
                 errMessage: 'Update product successfully!',
@@ -573,6 +630,7 @@ module.exports = {
     getAllUsers: getAllUsers,
     addNewAdmin: addNewAdmin,
     getAllProducts: getAllProducts,
+    getAProductSoldOut: getAProductSoldOut,
     getProductInfo: getProductInfo,
     updateProduct: updateProduct,
 }
