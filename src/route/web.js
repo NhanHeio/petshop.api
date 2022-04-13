@@ -63,6 +63,7 @@ let initWebRoutes = (app) => {
     router.get('/api/admin/get-all-products',adminController.handleCheckAdmin, adminController.handleGetAllProducts)
     router.get('/api/admin/get-products-sold-out',adminController.handleCheckAdmin, adminController.handleGetProductSoldOut)
     router.get('/api/admin/get-product-info',adminController.handleCheckAdmin, adminController.handleGetProductInfo)
+    router.delete('/api/admin/delete-product',adminController.handleCheckAdmin, adminController.handleDeleteProduct)
     router.post('/api/admin/update-product', uploadProduct.single("image"), adminController.handleUpdateProduct)
     return app.use("/", router)
 }

@@ -81,7 +81,7 @@ let getOverview = (id, year, type) => {
                     console.log(type)
                     if (type == 1) {
                         for (let i = 0; i <= 3; i++) {
-                            Order[i] = await db.Sold.count({
+                            Order[i] = await db.OrderItem.count({
                                 where: {
                                     [Op.and]: [{
                                         createdAt: {
@@ -116,7 +116,7 @@ let getOverview = (id, year, type) => {
                         }
                     } else {
                         for (let i = 0; i <= 11; i++) {
-                            Order[i] = await db.Sold.count({
+                            Order[i] = await db.OrderItem.count({
                                 where: {
                                     [Op.and]: [{
                                         createdAt: {
@@ -215,7 +215,6 @@ let cancelOrder = (id, userID) => {
                         where: { id: id }
                     })
                     orderList = await db.Order.findAll({
-                        where: { user_id: userID }
                     })
                     resolve(order = {
                         errCode: 0,
@@ -253,7 +252,6 @@ let confirmOrder = (id, userID) => {
                         where: { id: id }
                     })
                     orderList = await db.Order.findAll({
-                        where: { user_id: userID }
                     })
                     resolve(order = {
                         errCode: 0,
@@ -620,6 +618,34 @@ let updateProduct = (productID, name, type_id, price, desc,quantity,provider,img
     })
 }
 
+let deleteProduct = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try{
+            let product = await db.Product.findOne({
+                where: { id: id}
+            })
+            if(product){
+                await db.Product.destroy({
+                    where: {
+                        id: id
+                    }
+                })
+                resolve({
+                    errCode: 0,
+                    errMessage: 'Delete product successfully!',
+                })
+            }else{
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Product not found!'
+                })
+            }
+        }catch(e){
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
     checkAdmin: checkAdmin,
     getOverview: getOverview,
@@ -633,4 +659,5 @@ module.exports = {
     getAProductSoldOut: getAProductSoldOut,
     getProductInfo: getProductInfo,
     updateProduct: updateProduct,
+    deleteProduct: deleteProduct,
 }

@@ -7,7 +7,7 @@ const handleCheckAdmin = async (req, res, next) => {
         return next();
     }
     return res.status(400).json({
-        message: 'You do not have permission to access'
+        errMessage: 'You do not have permission to access'
     })
 }
 
@@ -146,12 +146,19 @@ const handleUpdateProduct = async (req, res) => {
     let quantity = req.body.quantity
     let provider = req.body.provider
     let img = req?.file?.filename || ""
-    console.log(img)
     let product = await adminService.updateProduct(productID, name, type_id, price, desc,quantity,provider,img)
     return res.status(200).json({
         errCode: product.errCode,
         errMessage: product.errMessage,
         product: product ? product.product : {}
+    })
+}
+const handleDeleteProduct = async (req, res) => {
+    let id = req.query.productID
+    let result = await adminService.deleteProduct(id)
+    res.status(200).json({
+        errCode: result.errCode,
+        errMessage: result.errMessage
     })
 }
 module.exports = {
@@ -167,4 +174,5 @@ module.exports = {
     handleGetProductSoldOut: handleGetProductSoldOut,
     handleGetProductInfo: handleGetProductInfo,
     handleUpdateProduct: handleUpdateProduct,
+    handleDeleteProduct: handleDeleteProduct,
 }
