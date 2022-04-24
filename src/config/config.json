@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "b6488f48f5505f",
-    "password": "8bbbab67",
-    "database": "heroku_daaeb831210df92",
-    "host": "us-cdbr-east-05.cleardb.net",
+    "username": "root",
+    "password": "",
+    "database": "petshop",
+    "host": "127.0.0.1",
     "dialect": "mysql",
     "query": {
       "raw": true

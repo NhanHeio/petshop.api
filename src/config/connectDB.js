@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('heroku_daaeb831210df92', 'b6488f48f5505f', '8bbbab67', {
-    host: 'us-cdbr-east-05.cleardb.net',
+const sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD || '', {
+    host: process.env.DATABASE_URL,
     dialect: 'mysql',
     logging: false,
 })
