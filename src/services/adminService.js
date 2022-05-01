@@ -81,7 +81,7 @@ let getOverview = (id, year, type) => {
                     console.log(type)
                     if (type == 1) {
                         for (let i = 0; i <= 3; i++) {
-                            Order[i] = await db.OrderItem.count({
+                            Order[i] = await db.Order.count({
                                 where: {
                                     [Op.and]: [{
                                         createdAt: {
@@ -116,7 +116,7 @@ let getOverview = (id, year, type) => {
                         }
                     } else {
                         for (let i = 0; i <= 11; i++) {
-                            Order[i] = await db.OrderItem.count({
+                            Order[i] = await db.Order.count({
                                 where: {
                                     [Op.and]: [{
                                         createdAt: {
@@ -177,6 +177,7 @@ let getOrderAdmin = (userID, page) => {
                     orderList = await db.Order.findAndCountAll({
                         offset: perPage * (page - 1),
                         limit: perPage,
+                        order: [['createdAt', 'DESC']]
                     })
                     resolve(order = {
                         errCode: 0,
@@ -287,6 +288,7 @@ let getBookingAdmin = (userID, page) => {
                     listService = await db.Booking.findAndCountAll({
                         offset: perPage * (page - 1),
                         limit: perPage,
+                        order: [['createdAt', 'DESC']]
                     })
                     resolve(service = {
                         errCode: 0,

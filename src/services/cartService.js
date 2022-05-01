@@ -179,7 +179,7 @@ let checkoutOrder = (user_id, name, phoneNumber, address) => {
             })
             let subject = 'Notifications for client order'
             let html = '<p>Khách hàng <b>' + name + ' </b>đã đặt hàng trên hệ thống PetShop.</p> <br> ' + 
-            '<a hrep=`localhost:3000/dashboard`>Chi tiết đơn hàng</a> '
+            '<a href=`http://localhost:3000/dashboard`>Chi tiết đơn hàng</a> '
             sendEmail(admin.email,subject,html)
             let order = await db.Order.findOne({
                 where: { user_id: user_id },

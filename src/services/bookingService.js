@@ -38,7 +38,9 @@ let booking = (userID, userName, service, date, time) => {
             })
             let subject = 'Notifications for client booking'
             //let text = "Khách hàng " + user.name.toString() + " đã đặt lịch sử dụng dịch vụ " + service.toString() + " vào ngày " + time.toString() + " " + date.toString()
-            let html = '<p>Khách hàng <b>' + user.name + ' </b>đã đặt lịch sử dụng dịch vụ <b>' + service + '</b> vào ngày <b>'+ time+ ' ' + date+ '</b></p>'
+            let html = `<p>Khách hàng <b>` + user.name + ` </b>đã đặt lịch sử dụng dịch vụ <b>` + service + `</b> vào ngày <b>`+ time+ ` ` + date+ `</b></p>
+                <hr> <a href="http://localhost:3000/dashboard"></a>
+            `
             // console.log(text)
             sendEmail(admin.email,subject,html)
         } catch (e) {
@@ -57,7 +59,8 @@ let getBookingUser = (userID) => {
             })
             if(user){
                 listService = await db.Booking.findAll({
-                    where: {user_id: userID}
+                    where: {user_id: userID},
+                    order: [['createdAt', 'DESC']]
                 })
                 // console.log(listService)
                 resolve(service = {
