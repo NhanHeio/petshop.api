@@ -21,11 +21,14 @@ let getBooking = (date) => {
 let booking = (userID, userName, service, date, time) => {
     return new Promise(async (resolve, reject) => {
         try {
+            let longDate = new Date(date)
+            let isoDate = longDate.toISOString()
             let booking = await db.Booking.create({
                 service: service,
                 user_id: userID,
                 username: userName,
                 date: date,
+                date_for_compare: isoDate,
                 time: time,
                 createdAt: new Date(),
                 updatedAt: new Date()
@@ -39,7 +42,7 @@ let booking = (userID, userName, service, date, time) => {
             let subject = 'Notifications for client booking'
             //let text = "Khách hàng " + user.name.toString() + " đã đặt lịch sử dụng dịch vụ " + service.toString() + " vào ngày " + time.toString() + " " + date.toString()
             let html = `<p>Khách hàng <b>` + user.name + ` </b>đã đặt lịch sử dụng dịch vụ <b>` + service + `</b> vào ngày <b>`+ time+ ` ` + date+ `</b></p>
-                <hr> <a href="http://localhost:3000/dashboard"></a>
+                <hr> <a href="http://localhost:3000/dashboard">Chi tiết</a>
             `
             // console.log(text)
             sendEmail(admin.email,subject,html)

@@ -23,7 +23,8 @@ const handleGetOverview = async (req, res) => {
 const handleAdminGetOrder = async (req, res) => {
     let userID = req.query.userID
     let page = req.query.page || 1
-    let order = await adminService.getOrderAdmin(userID,page)
+    let view = req.query.view || 1
+    let order = await adminService.getOrderAdmin(userID,page,view)
     let totalPages = Math.ceil(order.orderList.count / 10)
     return res.status(200).json({
         errCode: order.errCode,
@@ -56,7 +57,8 @@ const handleAdminConfirmOrder = async (req, res) => {
 const handleAdminGetBooking = async (req, res) => {
     let userID = req.query.userID
     let page = req.query.page || 1
-    let service = await adminService.getBookingAdmin(userID,page)
+    let view = req.query.view || 1
+    let service = await adminService.getBookingAdmin(userID,page,view)
     let totalPages = Math.ceil(service.listService.count / 10)
     return res.status(200).json({
         errCode: service.errCode,

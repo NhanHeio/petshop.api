@@ -163,7 +163,7 @@ let getOverview = (id, year, type) => {
     })
 }
 
-let getOrderAdmin = (userID, page) => {
+let getOrderAdmin = (userID, page, view) => {
     return new Promise(async (resolve, reject) => {
         try {
             let order = {}
@@ -174,11 +174,27 @@ let getOrderAdmin = (userID, page) => {
             })
             if (admin) {
                 if (admin.role_id === 1 || admin.role_id === 2) {
-                    orderList = await db.Order.findAndCountAll({
-                        offset: perPage * (page - 1),
-                        limit: perPage,
-                        order: [['createdAt', 'DESC']]
-                    })
+                    if (view == 2) {
+                        orderList = await db.Order.findAndCountAll({
+                            where: {
+                                status: {
+                                    [Op.or]: [
+                                        'Paid',
+                                        'Confirmed',
+                                    ]
+                                }
+                            },
+                            offset: perPage * (page - 1),
+                            limit: perPage,
+                            order: [['createdAt', 'DESC']]
+                        })
+                    } else {
+                        orderList = await db.Order.findAndCountAll({
+                            offset: perPage * (page - 1),
+                            limit: perPage,
+                            order: [['createdAt', 'DESC']]
+                        })
+                    }
                     resolve(order = {
                         errCode: 0,
                         errMessage: 'Get list order successfully!',
@@ -237,6 +253,7 @@ let cancelOrder = (id, userID) => {
         }
     })
 }
+
 let confirmOrder = (id, userID) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -274,7 +291,8 @@ let confirmOrder = (id, userID) => {
         }
     })
 }
-let getBookingAdmin = (userID, page) => {
+
+let getBookingAdmin = (userID, page, view) => {
     return new Promise(async (resolve, reject) => {
         try {
             let service = {}
@@ -285,11 +303,24 @@ let getBookingAdmin = (userID, page) => {
             })
             if (user) {
                 if (user.role_id === 1 || user.role_id === 2) {
-                    listService = await db.Booking.findAndCountAll({
-                        offset: perPage * (page - 1),
-                        limit: perPage,
-                        order: [['createdAt', 'DESC']]
-                    })
+                    if(view == 2){
+                        listService = await db.Booking.findAndCountAll({
+                            where: {
+                                date_for_compare: {
+                                    [Op.gt]: new Date()
+                                }
+                            },
+                            offset: perPage * (page - 1),
+                            limit: perPage,
+                            order: [['createdAt', 'DESC']]
+                        })
+                    }else{
+                        listService = await db.Booking.findAndCountAll({
+                            offset: perPage * (page - 1),
+                            limit: perPage,
+                            order: [['createdAt', 'DESC']]
+                        })
+                    }
                     resolve(service = {
                         errCode: 0,
                         errMessage: 'Get list service by user successfully!',
@@ -310,6 +341,7 @@ let getBookingAdmin = (userID, page) => {
         }
     })
 }
+
 let getAllUsers = (userID, page) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -360,6 +392,7 @@ let getAllUsers = (userID, page) => {
         }
     })
 }
+
 let addNewAdmin = (name, email, phonenumber, password, password2) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -488,13 +521,13 @@ let getAProductSoldOut = (userID, page) => {
                 if (isAdmin.role_id === 1 || isAdmin.role_id === 2) {
                     product = await db.Product.findAndCountAll({
                         where: {
-                            quantity: {[Op.lt]: 10}
+                            quantity: { [Op.lt]: 10 }
                         }
                     },
-                    {
-                        offset: perPage * (page - 1),
-                        limit: perPage,
-                    })
+                        {
+                            offset: perPage * (page - 1),
+                            limit: perPage,
+                        })
                     resolve(products = {
                         errCode: 0,
                         errMessage: 'Get all user by admin successfully!',
@@ -516,9 +549,9 @@ let getAProductSoldOut = (userID, page) => {
     })
 }
 
-let getProductInfo = (userID,productID) => {
+let getProductInfo = (userID, productID) => {
     return new Promise(async (resolve, reject) => {
-        try{
+        try {
             let product = ''
             let isAdmin = await db.User.findOne({
                 where: { id: userID }
@@ -526,9 +559,9 @@ let getProductInfo = (userID,productID) => {
             if (isAdmin) {
                 if (isAdmin.role_id === 1 || isAdmin.role_id === 2) {
                     product = await db.Product.findOne({
-                        where: { id: productID}
+                        where: { id: productID }
                     })
-                    if(product){
+                    if (product) {
                         resolve({
                             errCode: 0,
                             errMessage: 'Get product information successfully!',
@@ -549,21 +582,21 @@ let getProductInfo = (userID,productID) => {
                 errCode: 1,
                 errMessage: 'User not found!'
             })
-        }catch (e){
+        } catch (e) {
             reject(e);
         }
     })
 }
 
-let updateProduct = (productID, name, type_id, price, desc,quantity,provider,img) => {
+let updateProduct = (productID, name, type_id, price, desc, quantity, provider, img) => {
     return new Promise(async (resolve, reject) => {
-        try{
+        try {
             let product = await db.Product.findOne({
-                where: { id: productID}
+                where: { id: productID }
             })
-            if(product){
+            if (product) {
                 console.log(img)
-                if(img){
+                if (img) {
                     await db.Product.update({
                         name: name,
                         type_id: type_id,
@@ -573,10 +606,10 @@ let updateProduct = (productID, name, type_id, price, desc,quantity,provider,img
                         provider: provider,
                         img: img,
                         updatedAt: new Date()
-                    },{
-                        where: {id: productID}
+                    }, {
+                        where: { id: productID }
                     })
-                }else{
+                } else {
                     await db.Product.update({
                         name: name,
                         type_id: type_id,
@@ -585,19 +618,19 @@ let updateProduct = (productID, name, type_id, price, desc,quantity,provider,img
                         quantity: quantity,
                         provider: provider,
                         updatedAt: new Date()
-                    },{
-                        where: {id: productID}
+                    }, {
+                        where: { id: productID }
                     })
                 }
                 product = await db.Product.findOne({
-                    where: { id: productID}
+                    where: { id: productID }
                 })
                 resolve({
                     errCode: 0,
                     errMessage: 'Update product successfully!',
                     product
                 })
-            }else{
+            } else {
                 await db.Product.create({
                     name: name,
                     type_id: type_id,
@@ -614,7 +647,7 @@ let updateProduct = (productID, name, type_id, price, desc,quantity,provider,img
                 errCode: 0,
                 errMessage: 'Update product successfully!',
             })
-        }catch(e){
+        } catch (e) {
             reject(e);
         }
     })
@@ -622,11 +655,11 @@ let updateProduct = (productID, name, type_id, price, desc,quantity,provider,img
 
 let deleteProduct = (id) => {
     return new Promise(async (resolve, reject) => {
-        try{
+        try {
             let product = await db.Product.findOne({
-                where: { id: id}
+                where: { id: id }
             })
-            if(product){
+            if (product) {
                 await db.Product.destroy({
                     where: {
                         id: id
@@ -636,13 +669,13 @@ let deleteProduct = (id) => {
                     errCode: 0,
                     errMessage: 'Delete product successfully!',
                 })
-            }else{
+            } else {
                 resolve({
                     errCode: 1,
                     errMessage: 'Product not found!'
                 })
             }
-        }catch(e){
+        } catch (e) {
             reject(e);
         }
     })

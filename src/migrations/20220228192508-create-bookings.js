@@ -20,6 +20,9 @@ module.exports = {
       date: {
         type: Sequelize.STRING
       },
+      date_for_compare: {
+        type: Sequelize.DATE
+      },
       time: {
         type: Sequelize.STRING
       },

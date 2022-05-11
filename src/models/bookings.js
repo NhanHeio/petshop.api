@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     user_id: DataTypes.INTEGER,
     username: DataTypes.STRING,
     date: DataTypes.STRING,
+    date_for_compare: DataTypes.DATE,
     time: DataTypes.STRING
   }, {
     sequelize,
